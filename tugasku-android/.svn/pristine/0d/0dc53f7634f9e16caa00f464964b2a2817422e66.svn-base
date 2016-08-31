@@ -1,0 +1,145 @@
+package id.ac.gunadarma.tugasku;
+
+import id.ac.gunadarma.tugasku.account.AccountGeneral;
+import android.accounts.Account;
+import android.accounts.AccountAuthenticatorActivity;
+import android.accounts.AccountManager;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class LoginActivity extends AccountAuthenticatorActivity {
+
+	public final static String ARG_ACCOUNT_TYPE = "ACCOUNT_TYPE";
+    public final static String ARG_AUTH_TYPE = "AUTH_TYPE";
+    public final static String ARG_ACCOUNT_NAME = "ACCOUNT_NAME";
+    public final static String ARG_IS_ADDING_NEW_ACCOUNT = "IS_ADDING_ACCOUNT";
+
+    public static final String KEY_ERROR_MESSAGE = "ERR_MSG";
+
+    public final static String PARAM_USER_PASS = "USER_PASS";
+
+    private final int REQ_SIGNUP = 1;
+
+    private final String TAG = this.getClass().getSimpleName();
+
+    private AccountManager mAccountManager;
+    
+    private String mAuthTokenType = AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS;
+
+    /**
+     * Called when the activity is first created.
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_layout);
+        mAccountManager = AccountManager.get(getBaseContext());
+        
+        
+        findViewById(R.id.sign).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
+        
+        /*findViewById(R.id.signUp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Since there can only be one AuthenticatorActivity, we call the sign up activity, get his results,
+                // and return them in setAccountAuthenticatorResult(). See finishLogin().
+                Intent signup = new Intent(getBaseContext(), SignUpActivity.class);
+                signup.putExtras(getIntent().getExtras());
+                startActivityForResult(signup, REQ_SIGNUP);
+            }
+        });*/
+        
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQ_SIGNUP && resultCode == RESULT_OK) {
+            finishLogin(data);
+        } else
+            super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void signIn() {
+
+        final String userName = ((EditText) findViewById(R.id.username)).getText().toString();
+        final String userPass = ((EditText) findViewById(R.id.password)).getText().toString();
+
+        new AsyncTask<String, Void, Intent>() {
+        	ProgressDialog dialog;
+        	protected void onPreExecute() {
+        		dialog = ProgressDialog.show(LoginActivity.this, "", "Loading. Please wait...", true);
+        	};
+            @Override
+            protected Intent doInBackground(String... params) {
+                Log.d("Task", TAG + "> Started authenticating");
+
+                String authtoken = null;
+                Bundle data = new Bundle();
+                try {
+                    authtoken = AccountGeneral.sServerAuthenticate.userSignIn(userName, userPass, mAuthTokenType);
+                    data.putString(AccountManager.KEY_ACCOUNT_NAME, userName);
+                    data.putString(AccountManager.KEY_ACCOUNT_TYPE, AccountGeneral.ACCOUNT_TYPE);
+                    data.putString(AccountManager.KEY_AUTHTOKEN, authtoken);
+                    
+                    Bundle userData = new Bundle();
+                    userData.putString(AccountGeneral.USERDATA_USER_OBJ_ID, "monyet");
+                    data.putBundle(AccountManager.KEY_USERDATA, userData);
+                    
+                    data.putString(PARAM_USER_PASS, userPass);
+                } catch (Exception e) {
+                    data.putString(KEY_ERROR_MESSAGE, e.getMessage());
+                }
+
+                final Intent res = new Intent();
+                res.putExtras(data);
+                return res;
+            }
+
+            @Override
+            protected void onPostExecute(Intent intent) {
+            	dialog.dismiss();
+                if (intent.hasExtra(KEY_ERROR_MESSAGE)) {
+                    Toast.makeText(getBaseContext(), intent.getStringExtra(KEY_ERROR_MESSAGE), Toast.LENGTH_SHORT).show();
+                } else {
+                    finishLogin(intent);
+                }
+            }
+        }.execute();
+    }
+
+    private void finishLogin(Intent intent) {
+        Log.d("Task", TAG + "> finishLogin");
+
+        String accountName = intent.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+        String accountPassword = intent.getStringExtra(PARAM_USER_PASS);
+        final Account account = new Account(accountName, intent.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE));
+
+        if (getIntent().getBooleanExtra(ARG_IS_ADDING_NEW_ACCOUNT, false)) {
+            Log.d("Task", TAG + "> finishLogin > addAccountExplicitly, AuthToken: "+intent.getStringExtra(AccountManager.KEY_AUTHTOKEN));
+            String authtoken = intent.getStringExtra(AccountManager.KEY_AUTHTOKEN);
+            String authtokenType = mAuthTokenType;
+
+            mAccountManager.addAccountExplicitly(account, accountPassword, intent.getBundleExtra(AccountManager.KEY_USERDATA));
+            mAccountManager.setAuthToken(account, authtokenType, authtoken);
+        } else {
+            Log.d("udinic", TAG + "> finishLogin > setPassword");
+            mAccountManager.setPassword(account, accountPassword);
+        }
+
+        setAccountAuthenticatorResult(intent.getExtras());
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+}

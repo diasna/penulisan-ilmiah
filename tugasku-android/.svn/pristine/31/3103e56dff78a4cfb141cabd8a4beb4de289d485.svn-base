@@ -1,0 +1,80 @@
+package id.ac.gunadarma.tugasku;
+
+import id.ac.gunadarma.tugasku.db.Task;
+import id.ac.gunadarma.tugasku.db.TaskSQLiteHelper;
+import id.ac.gunadarma.tugasku.ui.DatePickerFragment;
+
+import java.util.Calendar;
+
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+public class TaskForm extends FragmentActivity implements OnDateSetListener {
+
+	private TextView textView;
+	private EditText titleEt;
+	private long date;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.taks_form_layout);
+		textView = (TextView) findViewById(R.id.textView1);
+		titleEt = (EditText) findViewById(R.id.editText1);
+	}
+
+	private void saveTask() {
+		TaskSQLiteHelper db = new TaskSQLiteHelper(this);
+		db.addTask(new Task(titleEt.getText().toString(), date, false, false));
+		Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
+		setResult(RESULT_OK, null);
+		finish();
+	}
+
+	public void showDatePickerDialog(View v) {
+		DialogFragment newFragment = new DatePickerFragment();
+		newFragment.show(getSupportFragmentManager(), "datePicker");
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_save:
+			saveTask();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.task_form, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public void onDateSet(DatePicker view, int year, int monthOfYear,int dayOfMonth) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, monthOfYear);
+		calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		textView.setText(dayOfMonth + "-" + (monthOfYear+1) + "-" + year+" ("+Util.countDays(calendar)+" Hari Lagi)");
+		date = calendar.getTimeInMillis();
+	}
+}

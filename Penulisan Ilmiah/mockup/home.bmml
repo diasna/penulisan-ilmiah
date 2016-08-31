@@ -1,0 +1,143 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1000" measuredH="562" mockupW="917" mockupH="562">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="83" y="0" w="917" h="562" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tiime%20Frame%20Management%20System%0Ahttp%3A//www.tifragment.com/home</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="__group__" x="85" y="73" w="913" h="302" measuredW="913" measuredH="302" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <controlName>tb-navbar</controlName>
+      </controlProperties>
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::RoundButton" x="0" y="0" w="913" h="44" measuredW="32" measuredH="32" zOrder="0" locked="false" isInGroup="1">
+          <controlProperties>
+            <align>left</align>
+            <color>3355443</color>
+            <shape>roundRect</shape>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::SubTitle" x="10" y="7" w="142" h="-1" measuredW="120" measuredH="27" zOrder="1" locked="false" isInGroup="1">
+          <controlProperties>
+            <color>16777215</color>
+            <text>Tifragment</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::RoundButton" x="178" y="2" w="68" h="40" measuredW="32" measuredH="32" zOrder="2" locked="false" isInGroup="1">
+          <controlProperties>
+            <backgroundAlpha>0.5</backgroundAlpha>
+            <borderColor>3355443</borderColor>
+            <color>0</color>
+            <shape>rectangle</shape>
+            <size>13</size>
+            <text>Home</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::RoundButton" x="243" y="2" w="83" h="40" measuredW="32" measuredH="32" zOrder="3" locked="false" isInGroup="1">
+          <controlProperties>
+            <backgroundAlpha>0</backgroundAlpha>
+            <borderColor>3355443</borderColor>
+            <color>0</color>
+            <shape>rectangle</shape>
+            <size>13</size>
+            <text>Dashboard</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::RoundButton" x="327" y="2" w="91" h="40" measuredW="32" measuredH="32" zOrder="4" locked="false" isInGroup="1">
+          <controlProperties>
+            <backgroundAlpha>0</backgroundAlpha>
+            <borderColor>3355443</borderColor>
+            <color>0</color>
+            <shape>rectangle</shape>
+            <size>13</size>
+            <text>Time%20Frame</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::RoundButton" x="417" y="2" w="68" h="40" measuredW="32" measuredH="32" zOrder="5" locked="false" isInGroup="1">
+          <controlProperties>
+            <backgroundAlpha>0</backgroundAlpha>
+            <borderColor>3355443</borderColor>
+            <color>0</color>
+            <shape>rectangle</shape>
+            <size>13</size>
+            <text>Project</text>
+          </controlProperties>
+        </control>
+        <control controlID="8" controlTypeID="__group__" x="805" y="3" w="101" h="40" measuredW="101" measuredH="40" zOrder="6" locked="false" isInGroup="1">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::RoundButton" x="0" y="0" w="100" h="40" measuredW="32" measuredH="32" zOrder="0" locked="false" isInGroup="8">
+              <controlProperties>
+                <backgroundAlpha>0</backgroundAlpha>
+                <borderColor>3355443</borderColor>
+                <color>0</color>
+                <shape>rectangle</shape>
+                <size>13</size>
+                <text>Account</text>
+              </controlProperties>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="85" y="14" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="1" locked="false" isInGroup="8">
+              <controlProperties>
+                <color>13421772</color>
+                <icon>DownFillTriangleIcon%7Cxsmall</icon>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+        <control controlID="9" controlTypeID="com.balsamiq.mockups::VRule" x="805" y="3" w="-1" h="37" measuredW="10" measuredH="100" zOrder="7" locked="false" isInGroup="1">
+          <controlProperties>
+            <backgroundAlpha>0.25</backgroundAlpha>
+            <color>16777215</color>
+          </controlProperties>
+        </control>
+        <control controlID="10" controlTypeID="com.balsamiq.mockups::RoundButton" x="486" y="2" w="68" h="40" measuredW="32" measuredH="32" zOrder="8" locked="false" isInGroup="1">
+          <controlProperties>
+            <backgroundAlpha>0</backgroundAlpha>
+            <borderColor>3355443</borderColor>
+            <color>0</color>
+            <shape>rectangle</shape>
+            <size>13</size>
+            <text>User</text>
+          </controlProperties>
+        </control>
+        <control controlID="11" controlTypeID="__group__" x="73" y="72" w="766" h="230" measuredW="766" measuredH="230" zOrder="9" locked="false" isInGroup="1">
+          <controlProperties>
+            <controlName>tb-hero-unit</controlName>
+          </controlProperties>
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="766" h="230" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="11">
+              <controlProperties>
+                <borderColor>14540253</borderColor>
+                <borderStyle>roundedSolid</borderStyle>
+                <color>14540253</color>
+                <verticalScrollbar>false</verticalScrollbar>
+              </controlProperties>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::Title" x="30" y="28" w="650" h="-1" measuredW="613" measuredH="31" zOrder="1" locked="false" isInGroup="11">
+              <controlProperties>
+                <align>left</align>
+                <bold>true</bold>
+                <size>28</size>
+                <text>Welcome%20to%20Time%20Frame%20Management%20System</text>
+              </controlProperties>
+            </control>
+            <control controlID="2" controlTypeID="com.balsamiq.mockups::Paragraph" x="30" y="63" w="628" h="48" measuredW="200" measuredH="80" zOrder="2" locked="false" isInGroup="11">
+              <controlProperties>
+                <size>18</size>
+                <text>This%20is%20a%20system%20to%20create%20and%20maintain%20a%20time%20frame%20for%20your%20projects.%20It%20easy%20to%20use.%20First%20you%20need%20to%20create%20your%20own%20project%20and%20its%20member.%20Enjoy%20it%21</text>
+              </controlProperties>
+            </control>
+            <control controlID="3" controlTypeID="com.balsamiq.mockups::Button" x="34" y="147" w="157" h="38" measuredW="122" measuredH="27" zOrder="3" locked="false" isInGroup="11">
+              <controlProperties>
+                <color>2848996</color>
+                <size>18</size>
+                <state>up</state>
+                <text>New%20Project</text>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+</mockup>

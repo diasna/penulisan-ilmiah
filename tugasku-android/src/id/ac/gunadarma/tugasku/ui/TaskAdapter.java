@@ -1,0 +1,84 @@
+package id.ac.gunadarma.tugasku.ui;
+
+import id.ac.gunadarma.tugasku.FragmentTabsPager;
+import id.ac.gunadarma.tugasku.MainActivity;
+import id.ac.gunadarma.tugasku.R;
+import id.ac.gunadarma.tugasku.db.Task;
+import id.ac.gunadarma.tugasku.db.TaskSQLiteHelper;
+import id.ac.gunadarma.tugasku.helper.Util;
+
+import java.util.Calendar;
+import java.util.Date;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.TextView;
+
+
+public class TaskAdapter extends ArrayAdapter<Task> {
+	
+	private int very_urgent = 0;
+	private int urgent = 0;
+	
+	public TaskAdapter(Context context) {
+		super(context, 0);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		very_urgent = prefs.getInt("very_urgent", 3);
+		urgent = prefs.getInt("urgent", 7);
+	}
+
+	@Override
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		if (convertView == null) {
+			convertView = LayoutInflater.from(getContext()).inflate(
+					R.layout.task_list_row, null);
+		}
+		TextView day = (TextView) convertView.findViewById(R.id.row_day);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date(getItem(position).getDeadline()));
+		if (day != null){
+			int remaining = Util.countDays(cal);
+			if (remaining <= very_urgent) {
+				day.setBackgroundColor(Color.RED);
+			} else if (remaining <= urgent) {
+				day.setBackgroundColor(Color.YELLOW);
+			} else {
+				day.setBackgroundColor(Color.GREEN);
+			}
+			
+			day.setText(remaining+"");
+			
+			if(getItem(position).isDone()){
+				day.setText("0");
+				day.setBackgroundColor(Color.GRAY);
+			}
+		}
+		TextView title = (TextView) convertView.findViewById(R.id.row_title);
+		if (title != null)
+			title.setText(getItem(position).getTitle());
+		CheckBox star = (CheckBox) convertView.findViewById(R.id.row_checkbox);
+		if (star != null){
+			star.setChecked(getItem(position).isDone());
+			star.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton v, boolean done) {
+					TaskSQLiteHelper sqLiteHelper = new TaskSQLiteHelper(getContext());
+					sqLiteHelper.markTaskStatus(getItem(position).getId(), done);
+					FragmentTabsPager a = (FragmentTabsPager) getContext();
+					a.reloadList(0);
+					a.reloadList(1);
+				}
+			});
+		}
+		return convertView;
+	}
+}

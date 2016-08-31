@@ -1,0 +1,8 @@
+package id.ac.gunadarma.tugasku.helper.dao;
+
+
+public class TaskResponse {
+	public String statusCode;
+	public String statusMessage;
+	public String id;
+}

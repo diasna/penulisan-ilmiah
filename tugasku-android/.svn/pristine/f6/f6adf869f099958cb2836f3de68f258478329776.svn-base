@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="REMINDERS" >
+        <id.ac.gunadarma.tugasku.ui.TimePreference
+            android:defaultValue="08:00"
+            android:key="notif_time"
+            android:summary="Set your desired time for the reminder"
+            android:title="Notification Time" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="URGENCY" >
+        <id.ac.gunadarma.tugasku.ui.NumberPreference
+            android:defaultValue="3"
+            android:key="very_urgent"
+            android:summary="Set urgency days"
+            android:title="Very Urgent (Red)" />
+        <id.ac.gunadarma.tugasku.ui.NumberPreference
+            android:defaultValue="7"
+            android:key="urgent"
+            android:summary="Set urgency days"
+            android:title="Urgent (Yellow)" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,68 @@
+package id.ac.gunadarma.tugasku.db;
+
+
+public class Task {
+	private int id;
+	private String title;
+	private long deadline;
+	private boolean done;
+	private boolean deleted = false;
+
+	public Task(String title, long deadline, boolean done, boolean deleted) {
+		this.title = title;
+		this.deadline = deadline;
+		this.done = done;
+		this.deleted = deleted;
+	}
+
+	public Task() {
+		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public long getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(long deadline) {
+		this.deadline = deadline;
+	}
+
+	public boolean isDone() {
+		return done;
+	}
+
+	public void setDone(boolean done) {
+		this.done = done;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	@Override
+	public String toString() {
+		return "Task [id=" + id + ", title=" + title + ", deadline=" + deadline
+				+ ", done=" + done + ", deleted=" + deleted + "]";
+	}
+
+}

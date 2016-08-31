@@ -1,0 +1,58 @@
+package id.ac.gunadarma.tugasku.sync;
+
+import id.ac.gunadarma.tugasku.account.AccountGeneral;
+
+import java.io.IOException;
+
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.content.AbstractThreadedSyncAdapter;
+import android.content.ContentProviderClient;
+import android.content.Context;
+import android.content.SyncResult;
+import android.os.Bundle;
+import android.util.Log;
+
+public class TaskSyncAdapter extends AbstractThreadedSyncAdapter {
+	
+	private static final String TAG = "TaskSyncAdapter";
+	
+	private final AccountManager mAccountManager;
+
+    public TaskSyncAdapter(Context context, boolean autoInitialize) {
+        super(context, autoInitialize);
+        mAccountManager = AccountManager.get(context);
+    }
+    
+    @Override
+    public void onPerformSync(Account account, Bundle extras, String authority,
+            ContentProviderClient provider, SyncResult syncResult) {
+    	StringBuilder sb = new StringBuilder();
+        if (extras != null) {
+            for (String key : extras.keySet()) {
+                sb.append(key + "[" + extras.get(key) + "] ");
+            }
+        }
+		Log.d(TAG, "onPerformSync for account[" + account.name + "]. Extras: " + sb.toString());
+		try {
+			
+		String authToken = mAccountManager.blockingGetAuthToken(account, AccountManager.KEY_AUTHTOKEN, true);
+        String userObjectId = mAccountManager.getUserData(account, AccountGeneral.USERDATA_USER_OBJ_ID);
+        
+        Log.d(TAG, "onPerformSync [" + authToken + "]. userObjectId: " + userObjectId);
+        
+		} catch (OperationCanceledException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            syncResult.stats.numIoExceptions++;
+            e.printStackTrace();
+        } catch (AuthenticatorException e) {
+            syncResult.stats.numAuthExceptions++;
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
